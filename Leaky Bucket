@@ -1,0 +1,32 @@
+Algorithm:
+1. Start
+2. Set the bucket size or the buffer size.
+3. Set the output rate.
+4. Transmit the packets such that there is no overflow.
+5. Repeat the process of transmission until all packets are transmitted. (Reject packets where
+its size is greater than the bucket size)
+6. Stop
+
+Program
+#include<stdio.h>
+int main(){
+int incoming, outgoing, buck_size, n, store = 0;
+printf("Enter bucket size, outgoing rate and no of inputs: ");
+scanf("%d %d %d", &buck_size, &outgoing, &n);
+while (n != 0) {
+printf("Enter the incoming packet size : ");
+scanf("%d", &incoming);
+printf("Incoming packet size %d\n", incoming);
+if (incoming <= (buck_size - store)){
+store += incoming;
+printf("Bucket buffer size %d out of %d\n", store, buck_size);
+} else {
+printf("Dropped %d no of packets\n", incoming - (buck_size - store));
+printf("Bucket buffer size %d out of %d\n", store, buck_size);
+store = buck_size;
+}
+store = store - outgoing;
+printf("After outgoing %d packets left out of %d in buffer\n", store, buck_size);
+n--;
+}
+}
