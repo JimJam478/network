@@ -1,0 +1,48 @@
+Algorithm
+1. Start the program
+2. Generate a random number that gives the total number of frames to be transmitted.
+3. Transmit the first frame
+4. Receive the acknowledgement for the first frame
+5. Transmit the next frame
+6. Find the remaining frames to be sent.
+7. If an acknowledgement is not received for a particular frame, retransmit that frame alone again.
+8. Repeat the steps 5 to 7 till the number of remaining frames to be sent becomes zero.
+9. Stop the program.
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+int main()
+{
+int i,j,noframes,x,x1=10,x2;
+for(i=0;i<200;i++)
+rand();
+noframes=rand()/200;
+i=1;
+j=1;
+noframes = noframes / 8;
+printf("\n number of frames is %d",noframes);
+while(noframes>0)
+{
+printf("\nsending frame %d",i);
+srand(x1++); //The srand() function sets the starting point for producing a series of pseudo-random integers
+x = rand()%10;
+if(x%2 == 0)
+{
+for (x2=1; x2<2; x2++)
+{
+ printf("waiting for %d seconds\n", x2);
+ sleep(x2);
+ printf("Missing Acknowledgement %d",i);
+}
+printf("\nsending frame %d",i);
+srand(x1++);
+x = rand()%10;
+}
+printf("\nack received for frame %d",j);
+noframes-=1;
+i++;
+j++;
+}
+printf("\n end of stop and wait protocol");
+}
